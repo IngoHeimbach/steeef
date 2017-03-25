@@ -15,7 +15,7 @@
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 
 function virtualenv_info {
-    [ $VIRTUAL_ENV ] && echo '('%F{blue}`basename $VIRTUAL_ENV`%f') '
+    [ $VIRTUAL_ENV ] && echo '('%F{blue}`basename $VIRTUAL_ENV`%f')'
 }
 
 setopt prompt_subst
@@ -53,7 +53,7 @@ zstyle ':vcs_info:*:prompt:*' check-for-changes true
 # %R - repository path
 # %S - path in the repository
 PR_RST="%f"
-FMT_BRANCH="(%{$turquoise%}%b%u%c${PR_RST})"
+FMT_BRANCH="(%{$turquoise%}%b%c%u${PR_RST})"
 FMT_ACTION="(%{$limegreen%}%a${PR_RST})"
 FMT_UNSTAGED="%{$orange%}●"
 FMT_STAGED="%{$limegreen%}●"
@@ -68,11 +68,11 @@ function steeef_precmd {
     # check for untracked files or updated submodules, since vcs_info doesn't
     if git ls-files --other --exclude-standard 2> /dev/null | grep -q "."; then
         PR_GIT_UPDATE=1
-        FMT_BRANCH="(%{$turquoise%}%b%u%c%{$hotpink%}●${PR_RST})"
+        FMT_BRANCH="(%{$turquoise%}%b%c%u%{$hotpink%}●${PR_RST})"
     else
-        FMT_BRANCH="(%{$turquoise%}%b%u%c${PR_RST})"
+        FMT_BRANCH="(%{$turquoise%}%b%c%u${PR_RST})"
     fi
-    zstyle ':vcs_info:*:prompt:*' formats "${FMT_BRANCH} "
+    zstyle ':vcs_info:*:prompt:*' formats "${FMT_BRANCH}"
 
     vcs_info 'prompt'
 }
@@ -80,6 +80,5 @@ add-zsh-hook precmd steeef_precmd
 
 pr_24h_clock='%*'
 
-PROMPT=$'
-%{$purple%}%n${PR_RST}@%{$orange%}%m${PR_RST} %{$limegreen%}%~${PR_RST} $vcs_info_msg_0_$(virtualenv_info)%{$orange%}$pr_24h_clock${PR_RST}
-$ '
+PROMPT='%B%n${PR_RST}@%m${PR_RST}:%{$limegreen%}%~${PR_RST}$vcs_info_msg_0_$(virtualenv_info)${PR_RST}%b$ '
+RPROMPT='`TMP_RET=$?; [ ${TMP_RET} != 0  ] && echo "${hotpink}${TMP_RET}"`'

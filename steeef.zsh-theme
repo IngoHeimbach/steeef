@@ -25,16 +25,16 @@ autoload -Uz vcs_info
 
 #use extended color pallete if available
 if [[ $terminfo[colors] -ge 256 ]]; then
-    turquoise="%F{81}"
-    orange="%F{166}"
-    purple="%F{135}"
-    hotpink="%F{161}"
+    turquoise="%F{51}"
+    orange="%F{208}"
+    blue="%F{117}"
+    red="%F{196}"
     limegreen="%F{118}"
 else
     turquoise="%F{cyan}"
     orange="%F{yellow}"
-    purple="%F{magenta}"
-    hotpink="%F{red}"
+    blue="%F{blue}"
+    red="%F{red}"
     limegreen="%F{green}"
 fi
 
@@ -68,7 +68,7 @@ function steeef_precmd {
     # check for untracked files or updated submodules, since vcs_info doesn't
     if git ls-files --other --exclude-standard 2> /dev/null | grep -q "."; then
         PR_GIT_UPDATE=1
-        FMT_BRANCH="(%{$turquoise%}%b%c%u%{$hotpink%}●${PR_RST})"
+        FMT_BRANCH="(%{$turquoise%}%b%c%u%{$red%}●${PR_RST})"
     else
         FMT_BRANCH="(%{$turquoise%}%b%c%u${PR_RST})"
     fi
@@ -80,5 +80,5 @@ add-zsh-hook precmd steeef_precmd
 
 pr_24h_clock='%*'
 
-PROMPT='%B%n${PR_RST}@%m${PR_RST}:%{$limegreen%}%~${PR_RST}$vcs_info_msg_0_$(virtualenv_info)${PR_RST}%b$ '
-RPROMPT='`TMP_RET=$?; [ ${TMP_RET} != 0  ] && echo "${hotpink}${TMP_RET}"`'
+PROMPT='%B%n${PR_RST}@%m${PR_RST}:%{$blue%}%~${PR_RST}$vcs_info_msg_0_$(virtualenv_info)${PR_RST}%b$ '
+RPROMPT='`TMP_RET=$?; [ ${TMP_RET} != 0  ] && echo "%{$red%}${TMP_RET}"`'

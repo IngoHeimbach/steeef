@@ -15,7 +15,7 @@
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 
 function virtualenv_info {
-    [ $VIRTUAL_ENV ] && echo '('%F{blue}`basename $VIRTUAL_ENV`%f')'
+    [ $VIRTUAL_ENV ] && echo -e "(%{$red%}"`basename $VIRTUAL_ENV`"${PR_RST})"
 }
 
 setopt prompt_subst

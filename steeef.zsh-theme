@@ -78,7 +78,11 @@ function steeef_precmd {
 }
 add-zsh-hook precmd steeef_precmd
 
-pr_24h_clock='%*'
+# update RPROMPT when the user switches between viins and vicmd mode
+function zle-keymap-select {
+    zle reset-prompt
+}
+zle -N zle-keymap-select
 
 PROMPT='%B%n${PR_RST}@%m${PR_RST}:%{$blue%}%~${PR_RST}$vcs_info_msg_0_$(virtualenv_info)${PR_RST}%b$ '
-RPROMPT='`TMP_RET=$?; [ ${TMP_RET} != 0  ] && echo "%{$red%}${TMP_RET}"`'
+RPROMPT='`TMP_RET=$?; [[ "${KEYMAP}" == "vicmd" ]] && echo -n "%{$orange%}[NORMAL]${PR_RST}"; [[ ${TMP_RET} != 0 ]] && echo -n " %{$red%}${TMP_RET}${PR_RST}"`'

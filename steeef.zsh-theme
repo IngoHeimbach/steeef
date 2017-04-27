@@ -66,7 +66,7 @@ zstyle ':vcs_info:*:prompt:*' nvcsformats   ""
 
 function steeef_precmd {
     # check for untracked files or updated submodules, since vcs_info doesn't
-    if git status -s 2>/dev/null | awk '$1 == "??" { print $1  }' | grep -q "."; then
+    if git ls-files --other --exclude-standard `git rev-parse --show-cdup 2>/dev/null` 2>/dev/null | grep -q "."; then
         PR_GIT_UPDATE=1
         FMT_BRANCH="(%{$turquoise%}%b%c%u%{$red%}●${PR_RST})"
     else

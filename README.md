@@ -1,6 +1,6 @@
 # steeef-modified
 
-![Screenshot](https://github.com/danihodovic/steeef/blob/master/steeef-modified.png)
+![Screenshot](https://github.com/IngoHeimbach/steeef/blob/master/steeef-modified.png)
 
 Zsh steeef theme as a standalone repository. The purpose behind this repo is avoid having a
 dependency on oh-my-zsh when using the steeef theme. Zsh plugin managers such as Antibody can use

@@ -22,7 +22,17 @@ Example usage with Antibody:
 - Fixed vcs information for unstaged files. Previously, the unstaged files indicator was only shown if unstaged
   files were present in the current working directory. Now, the whole repository is considered.
 - The error code of the last command is shown if it failed.
-- Added an indicator for normal mode (vi key bindings).
+- Added an indicator for normal mode (vi key bindings). In addition the cursor shape is changed if you initialize a
+  `cursorshape` array in your `.zshrc` that contains the escape codes needed for your terminal. Example for vte based
+  terminals (gnome-terminal, tilda and many more):
+  ```zsh
+  typeset -A cursorshape
+  if [ -n "${VTE_VERSION}" ]; then
+      cursorshape[block]="\e[2 q"
+      cursorshape[ibeam]="\e[6 q"
+  fi
+  ```
+  If you want blinking cursors decrease the numbers by one.
 
 # Credits
 - Stephen Price

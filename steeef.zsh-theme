@@ -78,8 +78,12 @@ function steeef_precmd {
 }
 add-zsh-hook precmd steeef_precmd
 
-# update RPROMPT when the user switches between viins and vicmd mode
+# update RPROMPT and cursorshape when the user switches between viins and vicmd mode
 function zle-keymap-select {
+    case $KEYMAP in
+        vicmd)      [[ -n ${cursorshape[block]} ]] && print -n -- "${cursorshape[block]}";;
+        viins|main) [[ -n ${cursorshape[ibeam]} ]] && print -n -- "${cursorshape[ibeam]}";;
+    esac
     zle reset-prompt
 }
 zle -N zle-keymap-select
